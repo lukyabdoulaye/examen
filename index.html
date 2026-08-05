@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Versionning — Page de présentation</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #1e293b;
+      --card: #ffffff;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #22d3ee;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+
+    /* ===== Navigation ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo span { color: var(--accent); }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 22px;
+    }
+    nav ul li a {
+      color: #cbd5e1;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover { color: var(--accent); }
+    .burger {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* ===== Sections ===== */
+    section { padding: 80px 24px; }
+    .container { max-width: 1100px; margin: auto; }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #94a3b8;
+      max-width: 650px;
+      margin: 0 auto 50px;
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.25), transparent 60%);
+      top: -150px;
+      right: -150px;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(34,211,238,0.2), transparent 60%);
+      bottom: -150px;
+      left: -150px;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 24px; }
+    .badge {
+      display: inline-block;
+      background: rgba(99,102,241,0.2);
+      color: var(--accent);
+      border: 1px solid rgba(99,102,241,0.4);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      margin-bottom: 32px;
+    }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(99,102,241,0.4); }
+    .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: #fff; background: transparent; }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+    .stat h3 { font-size: 2rem; color: #fff; }
+    .stat p { color: #94a3b8; font-size: 0.9rem; margin: 0; }
+
+    /* ===== Cards ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: var(--bg-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .card:hover { transform: translateY(-6px); border-color: var(--primary); }
+    .card .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      background: rgba(99,102,241,0.15);
+    }
+    .card h3 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
+    .card p { color: #cbd5e1; font-size: 0.95rem; }
+
+    /* ===== Timeline ===== */
+    .timeline { position: relative; max-width: 800px; margin: auto; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 70px;
+      margin-bottom: 40px;
+    }
+    .timeline-item .dot {
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .timeline-item .dot::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .timeline-item h3 { color: #fff; font-size: 1.2rem; margin-bottom: 6px; }
+    .timeline-item .date { color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; }
+    .timeline-item p { color: #cbd5e1; font-size: 0.95rem; }
+
+    /* ===== Git branch ===== */
+    .branch-visual {
+      background: var(--bg-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 40px 24px;
+      overflow-x: auto;
+    }
+    .branch-visual svg { width: 100%; min-width: 700px; display: block; }
+    .legend {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+    .legend span { display: flex; align-items: center; gap: 8px; }
+    .legend .color-dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+
+    /* ===== Commands ===== */
+    .commands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .command-card {
+      background: var(--bg-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .command-card .cmd {
+      background: #0b1220;
+      border-left: 3px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      color: #7dd3fc;
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .command-card .desc { color: #cbd5e1; font-size: 0.9rem; }
+
+    /* ===== Versions history ===== */
+    .version-list { max-width: 800px; margin: auto; }
+    .version-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+      background: var(--bg-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+    .version-item .hash {
+      font-family: monospace;
+      background: rgba(99,102,241,0.2);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    .version-item .info h4 { color: #fff; font-size: 1rem; margin-bottom: 2px; }
+    .version-item .info p { color: #94a3b8; font-size: 0.85rem; }
+    .version-item .tag {
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .tag-feature { background: rgba(16,185,129,0.2); color: var(--success); }
+    .tag-fix { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .tag-docs { background: rgba(245,158,11,0.2); color: var(--warning); }
+    .tag-release { background: rgba(99,102,241,0.2); color: var(--accent); }
+
+    /* ===== Comparison table ===== */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    th, td {
+      padding: 15px 18px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.95rem;
+    }
+    th { background: rgba(99,102,241,0.15); color: #fff; font-weight: 700; }
+    td { color: #cbd5e1; }
+    tr:hover td { background: rgba(99,102,241,0.05); }
+    .check { color: var(--success); font-weight: 700; }
+    .cross { color: var(--danger); font-weight: 700; }
+
+    /* ===== FAQ Accordion ===== */
+    .faq-item {
+      background: var(--bg-soft);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 20px 24px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-question .arrow { transition: transform 0.3s; color: var(--accent); }
+    .faq-item.open .faq-question .arrow { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: #cbd5e1;
+      padding: 0 24px;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding: 0 24px 20px; }
+
+    /* ===== Footer ===== */
+    footer {
+      background: #0b1220;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 24px;
+      text-align: center;
+      color: #94a3b8;
+    }
+    footer .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+    footer .footer-links a { font-size: 0.9rem; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      nav ul.open { display: flex; }
+      .burger { display: block; }
+      .hero-stats { gap: 24px; }
+      .version-item { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 60px 16px; }
+      .hero-buttons { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+<nav>
+  <div class="container">
+    <div class="logo">&#128736; <span>Versionning</span></div>
+    <ul id="menu">
+      <li><a href="#definition">Définition</a></li>
+      <li><a href="#historique">Historique</a></li>
+      <li><a href="#benefices">Bénéfices</a></li>
+      <li><a href="#types">Types</a></li>
+      <li><a href="#git">Git & Branches</a></li>
+      <li><a href="#commandes">Commandes</a></li>
+      <li><a href="#comparaison">Comparatif</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="#definition">
+  <div class="hero-content">
+    <span class="badge">&#128274; Contrôle de version</span>
+    <h1>Le <span class="gradient">Versionning</span> en toute simplicité</h1>
+    <p>Découvrez l'art de suivre, gérer et sécuriser l'évolution de votre code grâce aux systèmes de contrôle de version, avec Git comme outil phare.</p>
+    <div class="hero-buttons">
+      <a href="#definition" class="btn btn-primary">Commencer la découverte</a>
+      <a href="#git" class="btn btn-outline">Voir Git & Branches</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><h3>50M+</h3><p>Dépôts sur GitHub</p></div>
+      <div class="stat"><h3>90%+</h3><p>Des équipes l'utilisent</p></div>
+      <div class="stat"><h3>2005</h3><p>Année de création de Git</p></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= DEFINITION ================= -->
+<section id="definition">
+  <div class="container">
+    <h2 class="section-title">Qu'est-ce que le versionning ?</h2>
+    <p class="section-subtitle">Le versionning (ou contrôle de version) est un système qui enregistre les modifications apportées à un ou plusieurs fichiers au fil du temps, afin de pouvoir retrouver des versions spécifiques ultérieurement.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="icon">&#128200;</div>
+        <h3>Suivi des changements</h3>
+        <p>Chaque modification est enregistrée avec un historique détaillé : qui a modifié quoi, quand et pourquoi, via des messages de commit.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128257;</div>
+        <h3>Retour en arrière</h3>
+        <p>En cas d'erreur ou de bug, il est possible de revenir à une version antérieure stable du projet en quelques secondes.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128101;</div>
+        <h3>Collaboration</h3>
+        <p>Plusieurs développeurs peuvent travailler simultanément sur le même projet sans écraser le travail des autres, grâce aux branches et aux fusions.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128274;</div>
+        <h3>Sécurité</h3>
+        <p>Un dépôt centralisé (ou distribué) protège contre la perte de données et permet de sauvegarder régulièrement l'état du projet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HISTORIQUE ================= -->
+<section id="historique" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2 class="section-title">Historique du versionning</h2>
+    <p class="section-subtitle">De la gestion manuelle des fichiers aux systèmes distribués modernes : l'évolution du contrôle de version.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <h3>Fichiers copiés manuellement</h3>
+        <div class="date">Années 1970</div>
+        <p>Les développeurs copient manuellement leurs fichiers avec des suffixes (ex. <code>projet_final_v2.txt</code>). Méthode simple mais source d'erreurs et de confusion.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <h3>SCCS & RCS</h3>
+        <div class="date">1972 – 1982</div>
+        <p>SCCS (Source Code Control System) et RCS (Revision Control System) introduisent les systèmes locaux de gestion de versions, sur un seul ordinateur.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <h3>CVS</h3>
+        <div class="date">1990</div>
+        <p>CVS (Concurrent Versions System) apporte le premier système centralisé pouvant gérer le travail de plusieurs développeurs sur un serveur central.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <h3>SVN (Subversion)</h3>
+        <div class="date">2000</div>
+        <p>Subversion améliore CVS avec des commits atomiques, des révisions numérotées mondialement et une meilleure gestion des répertoires.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <h3>Git</h3>
+        <div class="date">2005</div>
+        <p>Créé par Linus Torvalds pour le noyau Linux, Git est un système <strong>distribué</strong> : chaque développeur possède une copie complète du dépôt.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="dot"></div>
+        <h3>GitHub, GitLab & Bitbucket</h3>
+        <div class="date">2008 – aujourd'hui</div>
+        <p>L'émergence des plateformes d'hébergement de dépôts Git démocratise la collaboration, les pull requests et l'intégration continue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BENEFICES ================= -->
+<section id="benefices">
+  <div class="container">
+    <h2 class="section-title">Pourquoi versionner votre code ?</h2>
+    <p class="section-subtitle">Les bénéfices concrets d'adopter un système de contrôle de version dans vos projets.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="icon">&#128218;</div>
+        <h3>Historique complet</h3>
+        <p>Conservez la trace de chaque modification avec possibilité de comparer, annoter et comprendre l'évolution du code.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128260;</div>
+        <h3>Branches & expérimentation</h3>
+        <p>Testez de nouvelles idées sur des branches séparées sans risquer de casser la version stable du projet.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128506;</div>
+        <h3>Restauration rapide</h3>
+        <p>Restaurez instantanément n'importe quelle version antérieure grâce aux commits et aux tags de version.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#127919;</div>
+        <h3>Release management</h3>
+        <p>Marquez des versions stables (v1.0, v2.1.3...) avec des tags pour un déploiement et un suivi de cycle de vie clairs.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#9989;</div>
+        <h3>Intégration continue</h3>
+        <p>Automatisez les tests et déploiements à chaque push grâce à l'intégration avec des pipelines CI/CD.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128110;</div>
+        <h3>Responsabilité & audit</h3>
+        <p>Identifiez précisément quel auteur a introduit une modification, facilitant la relecture de code et l'audit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TYPES ================= -->
+<section id="types" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2 class="section-title">Les types de systèmes de version</h2>
+    <p class="section-subtitle">Trois grandes architectures existent pour organiser le contrôle de version.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="icon">&#128421;</div>
+        <h3>Systèmes locaux</h3>
+        <p>Comme RCS, ils stockent les versions sur l'ordinateur local. Un seul utilisateur, une seule machine. Simple mais limité.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128268;</div>
+        <h3>Systèmes centralisés</h3>
+        <p>Comme CVS et SVN, un serveur central stocke toutes les versions. Les clients téléchargent les fichiers pour travailler, mais dépendent du serveur.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128230;</div>
+        <h3>Systèmes distribués</h3>
+        <p>Comme Git et Mercurial, chaque client dispose d'une copie complète du dépôt. Résilient, rapide et idéal pour la collaboration moderne.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GIT & BRANCHES ================= -->
+<section id="git">
+  <div class="container">
+    <h2 class="section-title">Git & les branches</h2>
+    <p class="section-subtitle">Visualisation du flux de travail classique avec Git : le tronc principal (main) et les branches de développement qui s'y fusionnent.</p>
+
+    <div class="branch-visual">
+      <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- timelines -->
+        <line x1="60" y1="60" x2="740" y2="60" stroke="#6366f1" stroke-width="4" stroke-linecap="round"/>
+        <line x1="160" y1="60" x2="160" y2="150" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+        <line x1="300" y1="150" x2="300" y2="60" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+        <line x1="300" y1="60" x2="420" y2="210" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+        <line x1="420" y1="210" x2="540" y2="60" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+
+        <!-- commit dots on main -->
+        <circle cx="100" cy="60" r="10" fill="#1e293b" stroke="#6366f1" stroke-width="3"/>
+        <circle cx="200" cy="60" r="10" fill="#1e293b" stroke="#6366f1" stroke-width="3"/>
+        <circle cx="320" cy="60" r="10" fill="#1e293b" stroke="#6366f1" stroke-width="3"/>
+        <circle cx="440" cy="60" r="10" fill="#1e293b" stroke="#6366f1" stroke-width="3"/>
+        <circle cx="560" cy="60" r="10" fill="#1e293b" stroke="#6366f1" stroke-width="3"/>
+        <circle cx="680" cy="60" r="10" fill="#1e293b" stroke="#6366f1" stroke-width="3"/>
+
+        <!-- commit dots on feature branch -->
+        <circle cx="240" cy="150" r="10" fill="#1e293b" stroke="#22d3ee" stroke-width="3"/>
+        <circle cx="360" cy="210" r="10" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+
+        <!-- labels -->
+        <text x="60" y="40" fill="#818cf8" font-size="14" font-weight="bold">main</text>
+        <text x="120" y="140" fill="#22d3ee" font-size="13" font-weight="bold">feature/new</text>
+        <text x="330" y="245" fill="#f59e0b" font-size="13" font-weight="bold">feature/experimental</text>
+
+        <!-- merge markers -->
+        <text x="290" y="95" fill="#94a3b8" font-size="12">merge</text>
+        <text x="530" y="95" fill="#94a3b8" font-size="12">merge</text>
+
+        <!-- tags -->
+        <text x="100" y="30" fill="#10b981" font-size="12" font-weight="bold">v1.0</text>
+        <text x="680" y="30" fill="#10b981" font-size="12" font-weight="bold">HEAD</text>
+      </svg>
+      <div class="legend">
+        <span><span class="color-dot" style="background:#6366f1;"></span> Branche principale (main)</span>
+        <span><span class="color-dot" style="background:#22d3ee;"></span> Branche de fonctionnalité</span>
+        <span><span class="color-dot" style="background:#f59e0b;"></span> Branche expérimentale</span>
+      </div>
+    </div>
+
+    <div class="cards-grid" style="margin-top: 40px;">
+      <div class="card">
+        <div class="icon">&#128279;</div>
+        <h3>Commit</h3>
+        <p>Un instantané (snapshot) de l'état du projet à un instant donné, accompagné d'un message descriptif.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128230;</div>
+        <h3>Branch</h3>
+        <p>Une ligne de développement indépendante qui diverge de la branche principale pour ajouter des fonctionnalités.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#128256;</div>
+        <h3>Merge</h3>
+        <p>L'opération qui fusionne les modifications d'une branche dans une autre, en résolvant les éventuels conflits.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#127919;</div>
+        <h3>Tag</h3>
+        <p>Un marqueur immuable sur un commit spécifique, utilisé pour identifier les versions de release (v1.0, v2.0...).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMMANDES ================= -->
+<section id="commandes" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2 class="section-title">Les commandes Git essentielles</h2>
+    <p class="section-subtitle">Un aperçu des commandes fondamentales pour débuter avec Git dans votre terminal.</p>
+    <div class="commands-grid">
+      <div class="command-card">
+        <div class="cmd">git init</div>
+        <div class="desc">Initialise un nouveau dépôt Git dans le répertoire courant.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git clone <url></div>
+        <div class="desc">Copie un dépôt distant (ex. GitHub) vers votre machine.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git status</div>
+        <div class="desc">Affiche l'état des fichiers : modifiés, indexés, ou non suivis.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git add <fichier></div>
+        <div class="desc">Ajoute des fichiers à la zone de staging (index) avant le commit.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git commit -m "message"</div>
+        <div class="desc">Enregistre un instantané des fichiers indexés avec un message.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git branch <nom></div>
+        <div class="desc">Crée une nouvelle branche de développement.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git checkout <branch></div>
+        <div class="desc">Bascule sur une autre branche ou restaure des fichiers.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git merge <branch></div>
+        <div class="desc">Fusionne une branche dans la branche courante.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git push</div>
+        <div class="desc">Envoie les commits locaux vers le dépôt distant.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git pull</div>
+        <div class="desc">Récupère et fusionne les modifications du dépôt distant.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git log --oneline</div>
+        <div class="desc">Affiche l'historique des commits de façon compacte.</div>
+      </div>
+      <div class="command-card">
+        <div class="cmd">git tag v1.0</div>
+        <div class="desc">Marque un commit avec une étiquette de version.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HISTORIQUE DE VERSIONS ================= -->
+<section id="versions">
+  <div class="container">
+    <h2 class="section-title">Exemple d'historique de versions</h2>
+    <p class="section-subtitle">À quoi ressemble un journal de commits réaliste pour un projet web.</p>
+    <div class="version-list">
+      <div class="version-item">
+        <span class="hash">a1b2c3d</span>
+        <div class="info">
+          <h4>Ajout de la page contact et du formulaire</h4>
+          <p>Marie Dupont · il y a 3 jours</p>
+        </div>
+        <span class="tag tag-feature">Feature</span>
+      </div>
+      <div class="version-item">
+        <span class="hash">e4f5a6b</span>
+        <div class="info">
+          <h4>Correction du bug d'affichage mobile</h4>
+          <p>Jean Martin · il y a 5 jours</p>
+        </div>
+        <span class="tag tag-fix">Fix</span>
+      </div>
+      <div class="version-item">
+        <span class="hash">c7d8e9f</span>
+        <div class="info">
+          <h4>Mise à jour de la documentation README</h4>
+          <p>Marie Dupont · il y a 1 semaine</p>
+        </div>
+        <span class="tag tag-docs">Docs</span>
+      </div>
+      <div class="version-item">
+        <span class="hash">0a1b2c3</span>
+        <div class="info">
+          <h4>Release v2.0 : nouveau design du site</h4>
+          <p>Équipe design & dev · il y a 2 semaines</p>
+        </div>
+        <span class="tag tag-release">Release</span>
+      </div>
+      <div class="version-item">
+        <span class="hash">4d5e6f7</span>
+        <div class="info">
+          <h4>Optimisation des performances (lazy loading)</h4>
+          <p>Jean Martin · il y a 3 semaines</p>
+        </div>
+        <span class="tag tag-feature">Feature</span>
+      </div>
+      <div class="version-item">
+        <span class="hash">8a9b0c1</span>
+        <div class="info">
+          <h4>Correction de la vulnérabilité XSS</h4>
+          <p>Security Team · il y a 1 mois</p>
+        </div>
+        <span class="tag tag-fix">Fix</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARAISON ================= -->
+<section id="comparaison" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2 class="section-title">Comparatif des systèmes de version</h2>
+    <p class="section-subtitle">Différences clés entre les principales approches de contrôle de version.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Critère</th>
+            <th>Local (RCS)</th>
+            <th>Centralisé (SVN)</th>
+            <th>Distribué (Git)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Copie du dépôt</td>
+            <td>Locale</td>
+            <td>Serveur central + clients</td>
+            <td>Complète chez chaque dev</td>
+          </tr>
+          <tr>
+            <td>Travail hors ligne</td>
+            <td><span class="check">&#10003;</span> Oui</td>
+            <td><span class="cross">&#10007;</span> Non</td>
+            <td><span class="check">&#10003;</span> Oui</td>
+          </tr>
+          <tr>
+            <td>Collaboration</td>
+            <td><span class="cross">&#10007;</span> Non</td>
+            <td><span class="check">&#10003;</span> Oui</td>
+            <td><span class="check">&#10003;</span> Oui</td>
+          </tr>
+          <tr>
+            <td>Branches & merges</td>
+            <td>Limitié</td>
+            <td>Lourd</td>
+            <td>Légers et rapides</td>
+          </tr>
+          <tr>
+            <td>Vitesse</td>
+            <td>Rapide</td>
+            <td>Lente (réseau)</td>
+            <td>Très rapide (local)</td>
+          </tr>
+          <tr>
+            <td>Recommandé pour</td>
+            <td>Projets solo simples</td>
+            <td>Environnements d'entreprise</td>
+            <td>Projets modernes et open source</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="container">
+    <h2 class="section-title">Questions fréquentes</h2>
+    <p class="section-subtitle">Les interrogations les plus courantes autour du versionning et de Git.</p>
+
+    <div class="faq-item">
+      <button class="faq-question">Quelle est la différence entre commit et push ? <span class="arrow">+</span></button>
+      <div class="faq-answer">Le <strong>commit</strong> enregistre une version localement sur votre machine. Le <strong>push</strong> envoie ces commits vers le dépôt distant (comme GitHub) pour les partager avec l'équipe.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Qu'est-ce qu'un conflit de fusion (merge conflict) ? <span class="arrow">+</span></button>
+      <div class="faq-answer">Un conflit survient lorsque deux branches modifient la même partie d'un fichier. Git ne peut pas décider automatiquement laquelle garder, vous devez donc résoudre manuellement le conflit.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Pourquoi utiliser une convention de commits (Conventional Commits) ? <span class="arrow">+</span></button>
+      <div class="faq-answer">Une convention comme <code>feat:</code>, <code>fix:</code>, <code>docs:</code> rend l'historique lisible, facilite la génération automatique de changelogs et le versioning sémantique.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Git est-il gratuit ? <span class="arrow">+</span></button>
+      <div class="faq-answer">Oui, Git est un logiciel libre et open source (licence GPL). Les plateformes d'hébergement comme GitHub, GitLab ou Bitbucket offrent des plans gratuits pour les projets publics.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Que mettre dans le fichier .gitignore ? <span class="arrow">+</span></button>
+      <div class="faq-answer">Le fichier <code>.gitignore</code> permet d'exclure du versioning les fichiers sensibles ou générés : secrets, clés API, dossiers <code>node_modules</code>, fichiers de build, etc.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="#definition">Définition</a>
+      <a href="#historique">Historique</a>
+      <a href="#git">Git</a>
+      <a href="#commandes">Commandes</a>
+      <a href="#comparaison">Comparatif</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <p>&copy; 2025 — Page de présentation du versionning. Réalisée en HTML &amp; CSS. &#128154;</p>
+  </div>
+</footer>
+
+<script>
+  // Menu burger (mobile)
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  burger.addEventListener('click', () => {
+    menu.classList.toggle('open');
+  });
+  // Fermer le menu après clic sur un lien (mobile)
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => menu.classList.remove('open'));
+  });
+
+  // Accordéon FAQ
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
